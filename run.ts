@@ -10,10 +10,11 @@ if (!isFinite(day)) {
   process.exit(1);
 }
 
-const cookie = "todo";
+const cookie =
+  "todo";
 
 interface PartModule {
-  run: (input: string) => void;
+  run: (input: ReadonlyArray<string>) => void;
 }
 
 (async () => {
@@ -22,7 +23,10 @@ interface PartModule {
   await runPart(input, 2);
 })();
 
-async function runPart(input: string, part: number): Promise<void> {
+async function runPart(
+  input: ReadonlyArray<string>,
+  part: number
+): Promise<void> {
   const partModulePath = `./${day}/${part}.ts`;
   if (!fs.existsSync(partModulePath)) {
     console.log(`Couldn't find ${partModulePath}`);
@@ -34,7 +38,10 @@ async function runPart(input: string, part: number): Promise<void> {
   console.log(`Result: ${result}`);
 }
 
-async function getInput(day: number, cookie: string): Promise<string> {
+async function getInput(
+  day: number,
+  cookie: string
+): Promise<ReadonlyArray<string>> {
   const cacheFile = `${day}/input`;
   if (!fs.existsSync(cacheFile)) {
     console.log("Input not cached. Fetching...");
@@ -49,7 +56,10 @@ async function getInput(day: number, cookie: string): Promise<string> {
       });
   }
 
-  return fs.readFileSync(cacheFile, { encoding: "utf8" }) as string;
+  return fs
+    .readFileSync(cacheFile, { encoding: "utf8" })
+    .split("\n")
+    .filter(r => r.length > 0);
 }
 
 function getInputUrl(day: number): string {
