@@ -27,7 +27,7 @@ async function runPart(
   input: ReadonlyArray<string>,
   part: number
 ): Promise<void> {
-  const partModulePath = `./${day}/${part}.ts`;
+  const partModulePath = `./solutions/day${day}_${part}.ts`;
   if (!fs.existsSync(partModulePath)) {
     console.log(`Couldn't find ${partModulePath}`);
     return;
@@ -42,7 +42,7 @@ async function getInput(
   day: number,
   cookie: string
 ): Promise<ReadonlyArray<string>> {
-  const cacheFile = `${day}/input`;
+  const cacheFile = `solutions/day${day}_input`;
   if (!fs.existsSync(cacheFile)) {
     console.log("Input not cached. Fetching...");
     await fetch(getInputUrl(day), {
